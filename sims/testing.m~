@@ -22,7 +22,7 @@ Vball= -mball*dot(gravity,xball(:,1));
 %Velocity of the ball is tangential to the track:
 %generally, this means that the ball's velocity must be tangent to the
 %vector space that formed by the solution to u x v= 0. The point of contact
-%between the track and the ball has to lie in this plane too
+%between the track and the ball
 %
 %Track:
 %The system will act as a pendulum, where the centre of mass of the track
