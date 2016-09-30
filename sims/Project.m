@@ -41,7 +41,7 @@ y_b_dot = R_bg * theta_dot * sin(theta);
 %y_b_dot = R_bg * theta_dot * theta;
 
 %%% Kinetic and potential energies
-T = 1/2 * M_t * (x_t_dot^2 + y_t_dot^2) + 1/2 * M_b * (x_b_dot^2 + y_b_dot^2) + 1/2 * I_b *(R_ti/r_b * (theta_dot - x_dot/R_t));
+T = 1/2 * M_t * (x_t_dot^2 + y_t_dot^2) + 1/2 * M_b * (x_b_dot^2 + y_b_dot^2) + 1/2 * I_b *(R_ti/r_b * (theta_dot^2 - (x_dot/R_t)^2));
 V = M_t*g*x_t + M_b*g*x_b;
 
 %eq1 = diff(T, x_dot) + diff(V,x);
