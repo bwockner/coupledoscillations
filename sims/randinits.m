@@ -1,4 +1,5 @@
 %script to randomly vary the initial conditions of the sim
+clear
 theta0=deg2rad(70);
 x0=0.15;
 initconds=[x0,theta0];
@@ -8,7 +9,8 @@ inx=zeros(ninits);
 intheta=zeros(ninits);
 for i=1:ninits;
     %randomly add an error to the initial conditions
-    rands=rand(2)-0.5*ones(2);
+    rands=(rand(1,2)-0.5*ones(1,2));
+    rands=rands.*errs;
     x=x0+rands(1);
     theta=theta0+rands(2);
     inx(i)=x;
