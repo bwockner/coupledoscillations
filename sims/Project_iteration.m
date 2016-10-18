@@ -1,16 +1,18 @@
+function Project_iteration(x0,theta0,name)
+%name is the name of the data file to be written
 calc_time_Total = tic;
 calc_time_Project = tic;
 %%% Calculate lagrange equations
 run Project
 
-fprintf('calc_time_Project = %f seconds \n', toc(calc_time_Project))
+%fprintf('calc_time_Project = %f seconds \n', toc(calc_time_Project))
 
 calc_time_Setup = tic;
 %%%Initial conditions
-x0 = 0;
+%x0 = 0;
 x_dot0 = 0;
 
-theta0 =  1;
+%theta0 =  1;
 theta_dot0 = 0;
     
 
@@ -25,7 +27,7 @@ theta_dot0 = 0;
 % Errors propogate quickly for dt > around 0.01.
 % Even for 0.002 they can be seen over a interval 5-10 sec long
 
-delta_t = 0.1;
+delta_t = 0.001;
 Fs = 1/delta_t;
 end_t = 12;                      % Must be a multiple of delta_t
 n_entries = end_t/delta_t+1;    % Number of plottable entries
@@ -85,27 +87,30 @@ for t = [1:n_entries-1];
     vel_theta(t+1) = vel_theta(t) + delta_t*new_theta_Ddot;
     
 %     calc_time_Iteration(t) = toc;
-    fprintf('calc_time_Interation = %f seconds \n', toc)
+%    fprintf('calc_time_Interation = %f seconds \n', toc)
 end
 
-fprintf('calc_time_Total = %f seconds \n', toc(calc_time_Total))
+fprintf('calc_time_Total(%s) = %f seconds \n',name, toc(calc_time_Total))
 
 %nfft = 2^nextpow2(n_entries);
 %Y = fft(disp_x,nfft);
 %Y = Y(1:nfft/10);
 %freq_plot = (0:nfft/10-1)*Fs/nfft;
 
-figure(1)
-hold on
-plot(t_plot,disp_x)
-figure(2)
-hold on
-plot(t_plot,disp_theta)
+% figure(1)
+% hold on
+% plot(t_plot,disp_x)
+% figure(2)
+% hold on
+% plot(t_plot,disp_theta)
 %figure(3)
 %hold on
 %plot(freq_plot,abs(Y))
 
 %%% Export data to text file for visualisation
-dlmwrite('DATA.txt', t_plot);
-dlmwrite('DATA.txt', disp_x, '-append')
-dlmwrite('DATA.txt', disp_theta, '-append')
+name=strcat(name,'.txt');
+
+dlmwrite(name, t_plot);
+dlmwrite(name, disp_x, '-append')
+dlmwrite(name, disp_theta, '-append')
+
