@@ -10,8 +10,14 @@ calc_time_Setup = tic;
 x0 = 0;
 x_dot0 = 0;
 
-theta0 = 1;
+theta0 =  1;
 theta_dot0 = 0;
+    
+
+%%%% Mode 1 %%%%
+%x0 = .15;
+%theta0 = -x0*3.68;
+
 
 %%% time steps
 %%%% NOTES
@@ -19,8 +25,9 @@ theta_dot0 = 0;
 % Errors propogate quickly for dt > around 0.01.
 % Even for 0.002 they can be seen over a interval 5-10 sec long
 
-delta_t = 0.001;
-end_t = 1;                      % Must be a multiple of delta_t
+delta_t = 0.1;
+Fs = 1/delta_t;
+end_t = 12;                      % Must be a multiple of delta_t
 n_entries = end_t/delta_t+1;    % Number of plottable entries
 
 t_plot = [0:n_entries-1]*delta_t;
@@ -77,10 +84,26 @@ for t = [1:n_entries-1];
     vel_x(t+1) = vel_x(t) + delta_t*new_x_Ddot;
     vel_theta(t+1) = vel_theta(t) + delta_t*new_theta_Ddot;
     
-    calc_time_Iteration(t) = toc;
+%     calc_time_Iteration(t) = toc;
+    fprintf('calc_time_Interation = %f seconds \n', toc)
 end
 
 fprintf('calc_time_Total = %f seconds \n', toc(calc_time_Total))
+
+%nfft = 2^nextpow2(n_entries);
+%Y = fft(disp_x,nfft);
+%Y = Y(1:nfft/10);
+%freq_plot = (0:nfft/10-1)*Fs/nfft;
+
+figure(1)
+hold on
+plot(t_plot,disp_x)
+figure(2)
+hold on
+plot(t_plot,disp_theta)
+%figure(3)
+%hold on
+%plot(freq_plot,abs(Y))
 
 %%% Export data to text file for visualisation
 dlmwrite('DATA.txt', t_plot);
